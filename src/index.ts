@@ -22,7 +22,6 @@ app.post("/send_message", (req: Request, res: Response) => {
 
     if (shouldFail) {
       return res.status(200).json({
-        success: false,
         data: null,
         message: "Simulated failure",
         to,
@@ -32,11 +31,18 @@ app.post("/send_message", (req: Request, res: Response) => {
     }
 
     const trackingId = uuidv4();
-    const data = JSON.stringify({ id: trackingId });
-
+    
+    console.log({
+      id: trackingId,
+      status: "Delivered",
+      message: "Message sent successfully",
+      to,
+      from,
+      text,
+    })
     return res.status(200).json({
-      success: true,
-      data,
+      id: trackingId,
+      status: "Delivered",
       message: "Message sent successfully",
       to,
       from,
